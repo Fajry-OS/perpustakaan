@@ -35,8 +35,14 @@ if (isset($_GET['detail'])) {
     WHERE pengembalian.id = '$id'");
     $rowDetail = mysqli_fetch_assoc($detail);
 
+    //ambil id_pemijaman di table pengembalian
+    $get_idpeminjaman = mysqli_query($koneksi, "SELECT id_peminjaman FROM pengembalian WHERE id = '$id'");
+    $idpeminjaman = mysqli_fetch_assoc($get_idpeminjaman);
+    $id_peminjaman = $idpeminjaman['id_peminjaman'];
+
+
     //Data buku yang di pinjam
-    $queryDetail = mysqli_query($koneksi, "SELECT * FROM detail_peminjaman LEFT JOIN book ON book.id = detail_peminjaman.id_buku LEFT JOIN kategori ON kategori.id = book.id_kategori WHERE id_peminjaman = '$id'");
+    $queryDetail = mysqli_query($koneksi, "SELECT * FROM detail_peminjaman LEFT JOIN book ON book.id = detail_peminjaman.id_buku LEFT JOIN kategori ON kategori.id = book.id_kategori WHERE id_peminjaman = '$id_peminjaman'");
 }
 
 
