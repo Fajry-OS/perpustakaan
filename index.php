@@ -184,17 +184,19 @@ include 'function/helper.php';
                     let tanggal_kembali = new moment(data.data.tgl_kembali);
                     let tanggal_pengembalian = new moment(pengembalian);
                     let selisih = tanggal_pengembalian.diff(tanggal_kembali, 'days');
+                    let terlambat = tanggal_pengembalian.diff(tanggal_kembali, 'days');
                     let denda = 100000;
-                    let totalDenda = selisih * denda;
-                    if (selisih < 0) {
-                        selisih = "Tidak Terlambat";
+                    if (selisih <= 0) {
+                        terlambat = "Tidak Terlambat";
+                        selisih = 0;
                     } else if (selisih > 0) {
-                        selisih = selisih + " Hari";
+                        terlambat = "Terlambat " + terlambat + " Hari";
                     }
+                    let totalDenda = selisih * denda;
                     $('#denda').val(totalDenda);
 
                     $('.total-denda').html("<h5>Rp. " + totalDenda.toLocaleString('id-ID') + "</h5>");
-                    $('#terlambat').val(selisih);
+                    $('#terlambat').val(terlambat);
 
                     let tbody = $('tbody'),
                         newRow = "";
@@ -212,6 +214,18 @@ include 'function/helper.php';
                 }
             })
         });
+
+        function toggleTransactionCode() {
+            const tgl_pengembalian = document.getElementById('tgl_pengembalian').value;
+            const Kode_peminjaman = document.getElementById('kode_peminjaman');
+
+            if (tgl_pengembalian === '') {
+                kode_peminjaman.disabled = true;
+                kode_peminjaman.selectedIndex = 0; // Reset pilihan jika dinonaktifkan
+            } else {
+                kode_peminjaman.disabled = false;
+            }
+        }
 
         // let tanggalSekarang = new Data();
         // let formatIndonesia = new Inti.DateTimeFormat('id-ID', {

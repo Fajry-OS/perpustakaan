@@ -164,7 +164,7 @@ $queryPeminjaman = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status
                                     <label for="">Tanggal Kembali</label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="date" class="form-control" id="tgl_pengembalian" name="tgl_pengembalian" value="">
+                                    <input type="date" class="form-control" id="tgl_pengembalian" name="tgl_pengembalian" value="" oninput="toggleTransactionCode()" required>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -182,7 +182,7 @@ $queryPeminjaman = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status
                                     <label for="">Kode Peminjaman</label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <select name="id_peminjaman" id="kode_peminjaman" class="form-control">
+                                    <select name="id_peminjaman" id="kode_peminjaman" class="form-control" disabled>
                                         <option value="">Pilih Kode Peminjaman</option>
                                         <?php while ($rowPeminjaman = mysqli_fetch_assoc($queryPeminjaman)) : ?>
                                             <option value="<?= $rowPeminjaman['id'] ?>"><?= $rowPeminjaman['kode_transaksi'] ?></option>
